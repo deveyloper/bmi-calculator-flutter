@@ -1,12 +1,12 @@
-import 'package:bmi_calculator/results_page.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/components/icon_content.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
+import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'constants.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'round_icon_button.dart';
-
 void main() => runApp(BMICalculator());
 
 class BMICalculator extends StatelessWidget {
@@ -232,21 +232,22 @@ class _InputPageState extends State<InputPage> {
           ),
           GestureDetector(
             onTap: () {
+              var brain = CalculatorBrain(height: height, weight: weight);
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ResultsPage(),
+                    builder: (context) => ResultsPage(bmi: brain.calculateBMI(),interpretation: brain.getInterpretation(),result: brain.getResult(),),
                   ));
             },
             child: Container(
               decoration: BoxDecoration(color: kBottomContainerColor),
               margin: EdgeInsets.only(top: 10),
               width: double.infinity,
-              height: 50,
+              height: 75,
               child: Center(
                 child: Text(
                   'Calculate',
-                  style: TextStyle(color: Color(0xFFFFFFFD), fontSize: 20.0),
+                  style: kBottomButtonTextStyle,
                 ),
               ),
             ),
